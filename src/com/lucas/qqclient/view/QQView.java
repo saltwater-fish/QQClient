@@ -1,10 +1,12 @@
 package com.lucas.qqclient.view;
 
+import com.lucas.qqclient.service.UserClientService;
 import com.lucas.qqclient.utils.Utility;
 
 public class QQView {
     private boolean loop = true;
     private String key = "";
+    private UserClientService userClientService = new UserClientService();
 
     // 显示主菜单
     public void mainView(){
@@ -21,14 +23,14 @@ public class QQView {
             switch (key){
                 case "1":   //登录系统
                     System.out.print("请输入用户ID：");
-                    String userID = Utility.readString(50);
+                    String userId = Utility.readString(50);
                     System.out.print("请输入密码：");
                     String pwd = Utility.readString(50);
                     // TODO 到服务端去验证
-                    if (true) {  // 验证成功
-                        System.out.println("==========================登录成功============================");
+                    if (userClientService.checkUser(userId, pwd)) {  // 验证成功
+                        System.out.println("==========================欢迎（用户" + userId + "登录成功）============================");
                         while (loop) {
-                            System.out.println("=========================网络通信系统二级菜单===========================");
+                            System.out.println("=========================网络通信系统二级菜单（用户ID" + userId + "）===========================");
                             System.out.println("\t\t 1 显示在线用户列表");
                             System.out.println("\t\t 2 群发消息");
                             System.out.println("\t\t 3 私聊消息");
