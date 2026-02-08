@@ -3,10 +3,17 @@ package com.lucas.qqclient.view;
 import com.lucas.qqclient.service.UserClientService;
 import com.lucas.qqclient.utils.Utility;
 
+import java.security.spec.RSAOtherPrimeInfo;
+
 public class QQView {
     private boolean loop = true;
     private String key = "";
     private UserClientService userClientService = new UserClientService();
+
+    public static void main(String[] args) {
+        new QQView().mainView();
+        System.out.println("客户端退出系统......");
+    }
 
     // 显示主菜单
     public void mainView(){
