@@ -33,7 +33,7 @@ public class QQView {
                     String userId = Utility.readString(50);
                     System.out.print("请输入密码：");
                     String pwd = Utility.readString(50);
-                    // TODO 到服务端去验证
+                    // 到服务端去验证
                     if (userClientService.checkUser(userId, pwd)) {  // 验证成功
                         System.out.println("==========================欢迎（用户" + userId + "登录成功）============================");
                         while (loop) {
@@ -47,8 +47,9 @@ public class QQView {
                             key = Utility.readString(1);
                             switch (key){
                                 case "1":
-                                    // TODO 显示在线用户列表
+                                    // 显示在线用户列表
                                     System.out.println("显示在线用户列表");
+                                    userClientService.onlineFriendList();
                                     break;
                                 case "2":
                                     // TODO 群发消息

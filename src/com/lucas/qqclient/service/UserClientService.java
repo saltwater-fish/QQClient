@@ -54,4 +54,26 @@ public class UserClientService {
 
         return b;
     }
+
+    public void onlineFriendList() {
+        // 准备message对象，发送到服务器端
+        Message message = new Message();
+        message.setMesType(MessageType.MESSAGE_GET_ONLINE_FRIEND);
+        message.setSender(u.getUserId());
+
+        try {
+            // 得到用户对应的客户端线程
+            ClientConnectServerTread clientConnectServerTread = ManageClientConnectServerTread.getClientConnectServerTread(u.getUserId());
+            // 通过线程得到对应的socket
+            Socket socket = clientConnectServerTread.getSocket();
+            // 得到当前线程socket对应的ObjectOutputStream对象
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            // 发送一个Message对象，向服务端请求在线用户列表
+            oos.writeObject(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }
