@@ -28,7 +28,15 @@ public class ClientConnectServerTread extends Thread {
             try {
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 Message message = (Message) ois.readObject();
-
+                if (message.getMesType().equals(MessageType.MESSAGE_RET_ONLINE_FRIEND)) {
+                    String[] onlineUsers = message.getContent().split(" ");
+                    System.out.println("\n==================当前在线用户列表==================");
+                    for (String onlineUser : onlineUsers) {
+                        System.out.println("用户：" + onlineUser);
+                    }
+                } else {
+                    System.out.println("其他类型消息，暂时不做处理");
+                }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
