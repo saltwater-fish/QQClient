@@ -1,5 +1,6 @@
 package com.lucas.qqclient.view;
 
+import com.lucas.qqclient.service.MessageClientServer;
 import com.lucas.qqclient.service.UserClientService;
 import com.lucas.qqclient.utils.Utility;
 
@@ -9,6 +10,7 @@ public class QQView {
     private boolean loop = true;
     private String key = "";
     private UserClientService userClientService = new UserClientService();
+    private MessageClientServer messageClientServer = new MessageClientServer();
 
     public static void main(String[] args) {
         new QQView().mainView();
@@ -56,8 +58,13 @@ public class QQView {
                                     System.out.println("群发消息");
                                     break;
                                 case "3":
-                                    // TODO 私聊消息
+                                    // 私聊消息
                                     System.out.println("私聊消息");
+                                    System.out.print("请输入想聊天的用户id(在线)：");
+                                    String getterId = Utility.readString(50);
+                                    System.out.print("请输入想说的话：");
+                                    String content = Utility.readString(100);
+                                    messageClientServer.sendToOne(content, userId, getterId);
                                     break;
                                 case "4":
                                     // TODO 发送文件

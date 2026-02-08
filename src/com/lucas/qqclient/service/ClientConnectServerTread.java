@@ -34,6 +34,9 @@ public class ClientConnectServerTread extends Thread {
                     for (String onlineUser : onlineUsers) {
                         System.out.println("用户：" + onlineUser);
                     }
+                } else if (message.getMesType().equals(MessageType.MESSAGE_COMM_MES)) {
+                    // 接受到服务器发来的私聊信息
+                    System.out.println(message.getSender() + " 对 " + message.getGetter() + " 说 " + message.getContent());
                 } else {
                     System.out.println("其他类型消息，暂时不做处理");
                 }
