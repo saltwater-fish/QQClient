@@ -64,8 +64,9 @@ public class QQView {
                                     System.out.println("发送文件");
                                     break;
                                 case "9":
-                                    // TODO 退出系统
+                                    // 退出系统
                                     System.out.println("退出系统");
+                                    userClientService.logout();
                                     loop = false;
                                     break;
                             }

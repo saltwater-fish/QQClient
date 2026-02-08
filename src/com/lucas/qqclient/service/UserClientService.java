@@ -7,6 +7,7 @@ import com.lucas.qqcommon.User;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
@@ -16,6 +17,22 @@ public class UserClientService {
 
     public UserClientService() {
 
+    }
+
+    // 客户端退出
+    public void logout() {
+        Message message = new Message();
+        message.setMesType(MessageType.MESSAGE_CLIENT_EXIT);
+        message.setSender(u.getUserId());
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(ManageClientConnectServerTread.getClientConnectServerTread(u.getUserId()).getSocket().getOutputStream());
+            oos.writeObject(message);
+            System.out.println(u.getUserId() + " 退出系统 ");
+            System.exit(0); // 结束进程
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean checkUser(String userId, String pwd) {
