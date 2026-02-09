@@ -1,16 +1,16 @@
 package com.lucas.qqclient.view;
 
+import com.lucas.qqclient.service.FileClientService;
 import com.lucas.qqclient.service.MessageClientServer;
 import com.lucas.qqclient.service.UserClientService;
 import com.lucas.qqclient.utils.Utility;
-
-import java.security.spec.RSAOtherPrimeInfo;
 
 public class QQView {
     private boolean loop = true;
     private String key = "";
     private UserClientService userClientService = new UserClientService();
     private MessageClientServer messageClientServer = new MessageClientServer();
+    private FileClientService fileClientService = new FileClientService();
 
     public static void main(String[] args) {
         new QQView().mainView();
@@ -70,8 +70,15 @@ public class QQView {
                                     messageClientServer.sendToOne(content, userId, getterId);
                                     break;
                                 case "4":
-                                    // TODO 发送文件
+                                    // 发送文件
                                     System.out.println("发送文件");
+                                    System.out.println("请输入你想把文件发送给的用户（在线用户）：");
+                                    getterId = Utility.readString(50);
+                                    System.out.println("请输入发送文件的路径（形式 d:\\xx.jpg）");
+                                    String src = Utility.readString(100);
+                                    System.out.println("请输入把文件发送到对应的路径（形式 d:\\yy.jpg）");
+                                    String dest = Utility.readString(100);
+                                    fileClientService.sendFileToOne(src, dest, userId, getterId);
                                     break;
                                 case "9":
                                     // 退出系统
