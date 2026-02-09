@@ -8,6 +8,24 @@ import java.io.ObjectOutputStream;
 import java.util.Date;
 
 public class MessageClientServer {
+    // 群聊消息
+    public void sendToAll(String content, String userId) {
+        // 创建一个message对象，将要发送的消息发送给服务器
+        Message message = new Message();
+        message.setSendTime(new Date().toString());
+        message.setMesType(MessageType.MESSAGE_TO_ALL_MES);
+        message.setSender(userId);
+        message.setContent(content);
+        System.out.println(userId + " 给大家说 " + content);
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(ManageClientConnectServerTread.getClientConnectServerTread(userId).getSocket().getOutputStream());
+            oos.writeObject(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     // 私聊消息
     public void sendToOne(String content, String userId, String getterId){
         // 创建一个message对象，将要发送的消息发送给服务器
